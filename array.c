@@ -1,55 +1,137 @@
 #include<stdio.h>
-int main(){
-    int n, i;
+
+int arr[100];  // Fixed size array
+int n;         // Size of array
+
+void getSize() {
     printf("Enter the size of array: ");
     scanf("%d", &n);
-    
-    int arr[n+1]; // Create array with extra space for insertion
-    
-    // Input array elements
+}
+
+void inputArray() {
     printf("Enter %d elements:\n", n);
-    for(i=0; i<n; i++){
+    for(int i = 0; i < n; i++) {
         scanf("%d", &arr[i]);
     }
-    
-    // Print original array
-    printf("Original array: ");
-    for(i=0; i<n; i++){
+}
+
+void displayArray() {
+    if(n == 0) {
+        printf("\nArray is empty!");
+        return;
+    }
+    printf("\nArray elements: ");
+    for(int i = 0; i < n; i++) {
         printf("%d ", arr[i]);
     }
-    
-    // Insert element at beginning
+    printf("\n");
+}
+
+void insertAtBeginning() {
+    if(n >= 100) {
+        printf("\nArray is full!");
+        return;
+    }
     int element;
     printf("\nEnter element to insert at beginning: ");
     scanf("%d", &element);
     
-    // Shift elements to right
-    for(i=n; i>0; i--){
+    for(int i = n; i > 0; i--) {
         arr[i] = arr[i-1];
     }
-    
-    // Insert new element at beginning
     arr[0] = element;
-    n++; // Increase array size
+    n++;
+}
+
+void insertAtPosition() {
+    if(n >= 100) {
+        printf("\nArray is full!");
+        return;
+    }
+    int element, pos;
+    printf("\nEnter element to insert: ");
+    scanf("%d", &element);
+    printf("Enter position (0 to %d): ", n);
+    scanf("%d", &pos);
     
-    // Print array after insertion
-    printf("Array after insertion: ");
-    for(i=0; i<n; i++){
-        printf("%d ", arr[i]);
+    if(pos < 0 || pos > n) {
+        printf("\nInvalid position!");
+        return;
     }
-    //To reverse the array
-    int j,temp;
-    for(i=0;i<n;i++){
-        for(j=n-1;j>i;j--){
-            temp=arr[j];
-            arr[j]=arr[j-1];
-            arr[j-1]=temp;
+    
+    for(int i = n; i > pos; i--) {
+        arr[i] = arr[i-1];
+    }
+    arr[pos] = element;
+    n++;
+}
+
+void insertAtEnd() {
+    if(n >= 100) {
+        printf("\nArray is full!");
+        return;
+    }
+    int element;
+    printf("\nEnter element to insert at end: ");
+    scanf("%d", &element);
+    
+    arr[n] = element;
+    n++;
+}
+
+void reverseArray() {
+    int temp;
+    for(int i = 0; i < n/2; i++) {
+        temp = arr[i];
+        arr[i] = arr[n-1-i];
+        arr[n-1-i] = temp;
+    }
+}
+
+int main() {
+    int choice;
+    
+    getSize();
+    inputArray();
+    
+    do {
+        printf("\n\n-------- ARRAY OPERATIONS --------");
+        printf("\n1. Display Array");
+        printf("\n2. Insert at Beginning");
+        printf("\n3. Insert at Specific Position");
+        printf("\n4. Insert at End");
+        printf("\n5. Reverse Array");
+        printf("\n6. Exit");
+        printf("\nEnter your choice (1-6): ");
+        scanf("%d", &choice);
+        
+        switch(choice) {
+            case 1:
+                displayArray();
+                break;
+            case 2:
+                insertAtBeginning();
+                displayArray();
+                break;
+            case 3:
+                insertAtPosition();
+                displayArray();
+                break;
+            case 4:
+                insertAtEnd();
+                displayArray();
+                break;
+            case 5:
+                reverseArray();
+                displayArray();
+                break;
+            case 6:
+                printf("\nExiting program...\n");
+                break;
+            default:
+                printf("\nInvalid choice!");
         }
-    }
-    //To Display an Array after reversing
-    printf("\nElements present in the array:");
-    for(i=0;i<n;i++){
-        printf("%d ",arr[i]);
-    }
+    } while(choice != 6);
+    
     return 0;
 }
