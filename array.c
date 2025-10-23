@@ -1,17 +1,41 @@
 #include<stdio.h>
 int main(){
-    int n,i;
-    printf("Enter the number of Elements you need in an Array:");
-    scanf("%d",&n);
-    int arr[n];
-    for(i=0;i<n;i++){
-        printf("\n Enter the element:");
-        scanf("%d",&arr[i]);
+    int n, i;
+    printf("Enter the size of array: ");
+    scanf("%d", &n);
+    
+    int arr[n+1]; // Create array with extra space for insertion
+    
+    // Input array elements
+    printf("Enter %d elements:\n", n);
+    for(i=0; i<n; i++){
+        scanf("%d", &arr[i]);
     }
-    //To Display an Array
-    printf("Elements present in the array:");
-    for(i=0;i<n;i++){
-        printf("%d ",arr[i]);
+    
+    // Print original array
+    printf("Original array: ");
+    for(i=0; i<n; i++){
+        printf("%d ", arr[i]);
+    }
+    
+    // Insert element at beginning
+    int element;
+    printf("\nEnter element to insert at beginning: ");
+    scanf("%d", &element);
+    
+    // Shift elements to right
+    for(i=n; i>0; i--){
+        arr[i] = arr[i-1];
+    }
+    
+    // Insert new element at beginning
+    arr[0] = element;
+    n++; // Increase array size
+    
+    // Print array after insertion
+    printf("Array after insertion: ");
+    for(i=0; i<n; i++){
+        printf("%d ", arr[i]);
     }
     //To reverse the array
     int j,temp;
