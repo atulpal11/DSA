@@ -13,3 +13,7 @@ void inputArray() {
         scanf("%d", &arr[i]);
     }
 }
+
+int main(){
+    return 0;
+}
